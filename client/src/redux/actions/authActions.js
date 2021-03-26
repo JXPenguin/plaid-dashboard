@@ -1,5 +1,5 @@
 import axios from "axios";
-import setAuthToken from "../utils/setAuthToken";
+import setAuthToken from "../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import {
   GET_ERRORS,
@@ -10,7 +10,7 @@ import {
 export const registerUser = (userData, history) => dispatch => {
   axios
     .post("/api/users/register", userData)
-    .then(res => history.push("/login")) // re-direct to login on successful register
+    .then(res => history.push("/landing")) // re-direct to landing on successful register
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

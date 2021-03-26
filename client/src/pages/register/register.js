@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { registerUser } from '../../redux/actions/authActions'
 
 // Assets
 import PlaidLogo from '../../assets/plaid_logo.png'
@@ -18,7 +20,9 @@ import {
 } from './register.styles'
 
 const Register = () => {
+  const dispatch = useDispatch()
   const [newUserData, setNewUserData] = useState({
+    name: '',
     email: '',
     password: '',
     password2: '',
@@ -34,7 +38,7 @@ const Register = () => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-
+    dispatch(registerUser(newUserData))
     console.log('submitting info', newUserData)
   }
 
@@ -42,6 +46,10 @@ const Register = () => {
     <Layout>
       <LoginCard onSubmit={onSubmit}>
         <TitleContainer><Logo src={PlaidLogo} /><Title>DASHBOARD</Title></TitleContainer>
+        <InputContainer>
+          <Input name='name' label='Name' variant='outlined' fullWidth onChange={onChange} />
+        </InputContainer>
+
         <InputContainer>
           <Input name='email' label='Email' variant='outlined' fullWidth onChange={onChange} />
         </InputContainer>

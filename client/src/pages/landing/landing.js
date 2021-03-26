@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { loginUser } from '../../redux/actions/authActions'
+
 
 // Assets
 import PlaidLogo from '../../assets/plaid_logo.png'
@@ -18,6 +21,7 @@ import {
 } from './landing.styles'
 
 const Landing = () => {
+  const dispatch = useDispatch()
   const [userData, setUserData] = useState({
     email: '',
     password: '',
@@ -35,6 +39,8 @@ const Landing = () => {
     e.preventDefault()
 
     console.log('submitting info', userData)
+    dispatch(loginUser(userData))
+    console.log('successfuly dispatched', userData)
   }
 
   return (
