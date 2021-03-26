@@ -1,5 +1,4 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useState } from 'react'
 
 // Assets
 import PlaidLogo from '../../assets/plaid_logo.png'
@@ -19,26 +18,44 @@ import {
 } from './register.styles'
 
 const Register = () => {
-  const history = useHistory()
+  const [newUserData, setNewUserData] = useState({
+    email: '',
+    password: '',
+    password2: '',
+  })
+
+  const onChange = (e) =>  {
+    const value = e.target.value;
+    setNewUserData({
+      ...newUserData,
+      [e.target.name]: value
+    })
+  }
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+
+    console.log('submitting info', newUserData)
+  }
 
   return (
     <Layout>
-      <LoginCard>
+      <LoginCard onSubmit={onSubmit}>
         <TitleContainer><Logo src={PlaidLogo} /><Title>DASHBOARD</Title></TitleContainer>
         <InputContainer>
-          <Input label='Email' variant='outlined' fullWidth />
+          <Input name='email' label='Email' variant='outlined' fullWidth onChange={onChange} />
         </InputContainer>
 
         <InputContainer>
-          <Input label='Password' type='password' variant='outlined' fullWidth />
+          <Input name='password' label='Password' type='password' variant='outlined' fullWidth onChange={onChange} />
         </InputContainer>
 
         <InputContainer>
-          <Input label='Confirm Password' type='password' variant='outlined' fullWidth />
+          <Input name='password2' label='Confirm Password' type='password' variant='outlined' fullWidth onChange={onChange} />
         </InputContainer>
 
         <ButtonContainer>
-          <LoginButton variant="contained" color="primary">Create Account</LoginButton>
+          <LoginButton type='submit' variant="contained" color="primary">Create Account</LoginButton>
           <RegisterLink href='/'>
             Go back to sign in
           </RegisterLink>

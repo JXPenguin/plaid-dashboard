@@ -18,7 +18,7 @@ export const Layout = styled.div`
   background-size: cover;
 `
 
-export const LoginCard = styled.div`
+export const LoginCard = styled.form`
   display: flex;
   flex-flow: column nowrap;
   align-items: center;

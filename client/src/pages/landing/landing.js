@@ -1,5 +1,4 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useState } from 'react'
 
 // Assets
 import PlaidLogo from '../../assets/plaid_logo.png'
@@ -19,21 +18,38 @@ import {
 } from './landing.styles'
 
 const Landing = () => {
-  const history = useHistory()
+  const [userData, setUserData] = useState({
+    email: '',
+    password: '',
+  })
+
+  const onChange = (e) => {
+    const value = e.target.value;
+    setUserData({
+      ...userData,
+      [e.target.name]: value
+    })
+  }
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+
+    console.log('submitting info', userData)
+  }
 
   return (
     <Layout>
-      <LoginCard>
+      <LoginCard onSubmit={onSubmit}>
         <TitleContainer><Logo src={PlaidLogo} /><Title>DASHBOARD</Title></TitleContainer>
         <InputContainer>
-          <Input label='Email' variant='outlined' fullWidth />
+          <Input name='email' label='Email' variant='outlined' fullWidth onChange={onChange} />
         </InputContainer>
 
         <InputContainer>
-          <Input label='Password' type='password' variant='outlined' fullWidth />
+          <Input name='password' label='Password' type='password' variant='outlined' fullWidth onChange={onChange} />
         </InputContainer>
         <ButtonContainer>
-          <LoginButton variant="contained" color="primary">Sign In</LoginButton>
+          <LoginButton type='submit' variant="contained" color="primary">Sign In</LoginButton>
           <RegisterLink href='/register'>
             REGISTER
           </RegisterLink>
