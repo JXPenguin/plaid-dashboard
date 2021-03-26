@@ -9,6 +9,6 @@ const errorReducers = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
 
-export default errorReducers
+export default errorReducers;
