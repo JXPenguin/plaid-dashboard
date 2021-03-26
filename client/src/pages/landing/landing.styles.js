@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 import BackgroundImage from '../../assets/background_image.jpg'
+import { Button, TextField } from '@material-ui/core'
+
 
 export const Layout = styled.div`
   display: flex;
@@ -53,4 +55,22 @@ export const InputContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 18rem;
+`
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+`
+
+export const LoginButton = styled(Button)`
+`
+
+export const Input = styled(TextField)`
+`
+
+export const RegisterLink = styled.a`
+  padding: 0.5rem;
+  margin: 1rem;
+  color: black;
+  text-decoration: none;
 `

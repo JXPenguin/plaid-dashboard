@@ -1,9 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { TextField } from '@material-ui/core'
-
-
 // Assets
 import PlaidLogo from '../../assets/plaid_logo.png'
 
@@ -15,6 +12,10 @@ import {
   Title,
   Logo,
   InputContainer,
+  Input,
+  ButtonContainer,
+  LoginButton,
+  RegisterLink,
 } from './landing.styles'
 
 const Landing = () => {
@@ -25,15 +26,18 @@ const Landing = () => {
       <LoginCard>
         <TitleContainer><Logo src={PlaidLogo} /><Title>DASHBOARD</Title></TitleContainer>
         <InputContainer>
-          <TextField label='Email' variant='outlined' fullWidth />
+          <Input label='Email' variant='outlined' fullWidth />
         </InputContainer>
 
         <InputContainer>
-          <TextField label='Password' variant='outlined' fullWidth />
+          <Input label='Password' variant='outlined' fullWidth />
         </InputContainer>
-        <InputContainer>
-          Register
-        </InputContainer>
+        <ButtonContainer>
+          <LoginButton variant="contained" color="primary">Log In</LoginButton>
+          <RegisterLink href='/register'>
+            REGISTER
+          </RegisterLink>
+        </ButtonContainer>
       </LoginCard>
     </Layout>
   )
