@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { loginUser } from '../../redux/actions/authActions'
 
 
@@ -22,6 +23,7 @@ import {
 
 const Landing = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const [userData, setUserData] = useState({
     email: '',
     password: '',
@@ -38,7 +40,7 @@ const Landing = () => {
   const onSubmit = (e) => {
     e.preventDefault()
 
-    dispatch(loginUser(userData))
+    dispatch(loginUser(userData, history))
   }
 
   return (
