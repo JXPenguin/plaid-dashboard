@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { registerUser } from '../../redux/actions/authActions'
 
 // Assets
@@ -21,6 +22,7 @@ import {
 
 const Register = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const [newUserData, setNewUserData] = useState({
     name: '',
     email: '',
@@ -38,7 +40,7 @@ const Register = () => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    dispatch(registerUser(newUserData))
+    dispatch(registerUser(newUserData, history))
     console.log('submitting info', newUserData)
   }
 
