@@ -7,8 +7,9 @@ export const Layout = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
+  min-height: -webkit-fill-available;
 
   /* Handles background image */
   background: url(${BackgroundImage}) no-repeat center center fixed;

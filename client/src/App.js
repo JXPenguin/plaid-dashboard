@@ -1,44 +1,66 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+import jwt_decode from "jwt-decode";
+import setAuthToken from "./utils/setAuthToken";
+import { setCurrentUser, logoutUser } from "./redux/actions/authActions";
+import store from "./redux/store";
 
 // Pages
-import Landing from './pages/landing'
-import Register from './pages/register'
-import Dashboard from './pages/dashboard'
-
-
+import Landing from "./pages/landing";
+import Register from "./pages/register";
+import Dashboard from "./pages/dashboard";
 
 const App = () => {
   // redux is user logged in
-  const { isAuthenticated } = useSelector(state => state.auth)
-  
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (localStorage.jwtToken) {
+      // Set auth token header auth
+      const token = localStorage.jwtToken;
+      setAuthToken(token);
+      // Decode token and get user info and exp
+      const decoded = jwt_decode(token);
+      // Set user and isAuthenticated
+      store.dispatch(setCurrentUser(decoded));
+      // Check for expired token
+      const currentTime = Date.now() / 1000; // to get in milliseconds
+      if (decoded.exp < currentTime) {
+        // Logout user
+        store.dispatch(logoutUser());
+        // Redirect to login
+        window.location.href = "./landing";
+      }
+    }
+  }, []);
   // Need to add proper dashboard and other routes later
   if (isAuthenticated) {
     return (
       <Router>
         <Switch>
-          <Route path='/'>
-            <Dashboard/>
+          <Route path="/">
+            <Dashboard />
           </Route>
         </Switch>
       </Router>
-      )
-    }
+    );
+  }
 
   if (!isAuthenticated) {
     return (
       <Router>
         <Switch>
-          <Route path='/register'>
+          <Route path="/register">
             <Register />
           </Route>
-          <Route path='/'>
+          <Route path="/">
             <Landing />
           </Route>
         </Switch>
       </Router>
-    )
+    );
   }
-}
+};
 
 export default App;
