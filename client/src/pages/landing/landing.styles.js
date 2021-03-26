@@ -51,7 +51,7 @@ export const Title = styled.div`
 `
 
 export const InputContainer = styled.div`
-  margin: 1rem 1rem;
+  margin: 0rem 1rem 1rem 1rem;
   display: flex;
   justify-content: center;
   width: 18rem;

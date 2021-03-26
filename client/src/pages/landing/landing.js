@@ -30,10 +30,10 @@ const Landing = () => {
         </InputContainer>
 
         <InputContainer>
-          <Input label='Password' variant='outlined' fullWidth />
+          <Input label='Password' type='password' variant='outlined' fullWidth />
         </InputContainer>
         <ButtonContainer>
-          <LoginButton variant="contained" color="primary">Log In</LoginButton>
+          <LoginButton variant="contained" color="primary">Sign In</LoginButton>
           <RegisterLink href='/register'>
             REGISTER
           </RegisterLink>
