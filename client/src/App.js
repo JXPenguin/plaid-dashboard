@@ -31,11 +31,8 @@ const App = () => {
   }, []);
 
   const onSuccess = useCallback((token, metadata) => {
-    console.log(
-      "attempting to exchange public token for access token and fetch info"
-    );
-    axios.post("/api/plaid/token-exchange", { token });
-    console.log("successfully completed fetch");
+    console.log('token in onSuccess', token)
+    axios.post("/api/plaid/token-exchange", { publicToken: token });
   }, []);
 
   const config = {
@@ -44,7 +41,6 @@ const App = () => {
     // ...
   };
 
-  console.log("config", config);
 
   // TODO: context provider for plaid features
   const plaidLink = usePlaidLink(config);

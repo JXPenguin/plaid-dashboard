@@ -5,7 +5,7 @@ import Navbar from "../../components/layout/navbar";
 import { Layout } from "../pages.styles";
 
 const Dashboard = ({ plaidLink }) => {
-  const { user } = useSelector((state) => state.auth);
+  // const { user } = useSelector((state) => state.auth);
 
   return (
     <Layout>

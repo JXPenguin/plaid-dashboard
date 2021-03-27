@@ -19,48 +19,59 @@ const plaidClient = new plaid.Client({
 
 // ROUTES
 router.get("/create-link-token", async (req, res) => {
-  const { link_token: linkToken } = await plaidClient.createLinkToken({
-    user: {
-      client_user_id: "unique id",
-    },
-    client_name: "Jeff",
-    products: ["auth", "identity"],
-    country_codes: ["US"],
-    language: "en",
-  });
+  try {
+    const { link_token: linkToken } = await plaidClient.createLinkToken({
+      user: {
+        client_user_id: "unique id",
+      },
+      client_name: "Jeff",
+      products: ["auth", "identity"],
+      country_codes: ["US"],
+      language: "en",
+    });
 
-  res.json({ linkToken });
+    res.json({ linkToken });
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 router.post("/token-exchange", async (req, res) => {
-  const { publicToken } = req.body;
-  const { access_token: accessToken } = await plaidClient.exchangePublicToken(
-    publicToken
-  );
+  try {
+    console.log('body req', req.body)
+    const { publicToken } = req.body;
+    const { access_token: accessToken } = await plaidClient.exchangePublicToken(
+      publicToken
+    );
 
-  const authResponse = await plaidClient.getAuth(accessToken);
+    console.log('access token acquired', accessToken)
 
-  console.log("--------------");
-  console.log(
-    "Auth Response:  ",
-    console.log(util.inspect(authResponse, false, null, true))
-  );
+    const authResponse = await plaidClient.getAuth(accessToken);
 
-  const identityResponse = await plaidClient.getIdentity(accessToken);
-  console.log("--------------");
-  console.log(
-    "Identity Response:  ",
-    console.log(util.inspect(identityResponse, false, null, true))
-  );
+    console.log("--------------");
+    console.log(
+      "Auth Response:  ",
+      console.log(util.inspect(authResponse, false, null, true))
+    );
 
-  const balanceResponse = await plaidClient.get(accessToken);
-  console.log("--------------");
-  console.log(
-    "Balance Response:  ",
-    console.log(util.inspect(balanceResponse, false, null, true))
-  );
+    const identityResponse = await plaidClient.getIdentity(accessToken);
+    console.log("--------------");
+    console.log(
+      "Identity Response:  ",
+      console.log(util.inspect(identityResponse, false, null, true))
+    );
 
-  res.sendStatus(200);
+    const balanceResponse = await plaidClient.get(accessToken);
+    console.log("--------------");
+    console.log(
+      "Balance Response:  ",
+      console.log(util.inspect(balanceResponse, false, null, true))
+    );
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 // Routes will go here
