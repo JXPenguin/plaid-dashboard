@@ -16,22 +16,26 @@ const App = () => {
   // redux is user logged in
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.auth);
-  const [linkToken, setLinkToken] = useState("")
-  
+  const [linkToken, setLinkToken] = useState("");
+
   useEffect(() => {
     const fetchLinkToken = async () => {
-      const linkTokenData = await axios.get("/api/plaid/create-link-token")
-      setLinkToken(linkTokenData)
-    }
+      const linkTokenData = await axios.get("/api/plaid/create-link-token");
+      const {
+        data: { linkToken: tokenData },
+      } = linkTokenData;
+      setLinkToken(tokenData);
+    };
 
-    fetchLinkToken()
-  },[])
-
+    fetchLinkToken();
+  }, []);
 
   const onSuccess = useCallback((token, metadata) => {
-    console.log("attempting to exchange public token for access token and fetch info")
+    console.log(
+      "attempting to exchange public token for access token and fetch info"
+    );
     axios.post("/api/plaid/token-exchange", { token });
-    console.log("successfully completed fetch")
+    console.log("successfully completed fetch");
   }, []);
 
   const config = {
@@ -39,6 +43,8 @@ const App = () => {
     onSuccess,
     // ...
   };
+
+  console.log("config", config);
 
   // TODO: context provider for plaid features
   const plaidLink = usePlaidLink(config);
