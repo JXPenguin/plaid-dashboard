@@ -13,8 +13,9 @@ import {
   PlaidLink,
 } from "./navbar.styles";
 
-const Navbar = () => {
+const Navbar = ({ plaidLink }) => {
   const dispatch = useDispatch();
+  const { open, ready, error } = plaidLink
 
   return (
     <Layout>
@@ -23,7 +24,7 @@ const Navbar = () => {
         <Title>DASHBOARD</Title>
       </TitleContainer>
       <MenuContainer>
-        <PlaidLink onClick={() => console.log("linking")}>
+        <PlaidLink onClick={() => open()} disabled={!ready}>
           Link with Plaid!
         </PlaidLink>
         <div onClick={() => dispatch(logoutUser())}>Sign out</div>

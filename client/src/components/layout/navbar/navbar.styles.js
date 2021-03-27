@@ -36,7 +36,10 @@ export const MenuContainer = styled.div`
   width: 12rem;
 
   & > * {
+    display: flex;
+    align-items: center;
     cursor: pointer;
+    height: 100%;
   }
 `;
 
