@@ -57,7 +57,7 @@ const Landing = () => {
             variant="outlined"
             fullWidth
             onChange={onChange}
-            error={errors.email}
+            error={!!errors.email}
             helperText={errors.email}
           />
         </InputContainer>
@@ -70,7 +70,7 @@ const Landing = () => {
             variant="outlined"
             fullWidth
             onChange={onChange}
-            error={errors.password}
+            error={!!errors.password}
             helperText={errors.password}
           />
         </InputContainer>

@@ -58,7 +58,7 @@ const Register = () => {
             variant="outlined"
             fullWidth
             onChange={onChange}
-            error={errors.name}
+            error={!!errors.name}
             helperText={errors.name}
           />
         </InputContainer>
@@ -70,7 +70,7 @@ const Register = () => {
             variant="outlined"
             fullWidth
             onChange={onChange}
-            error={errors.email}
+            error={!!errors.email}
             helperText={errors.email}
           />
         </InputContainer>
@@ -83,7 +83,7 @@ const Register = () => {
             variant="outlined"
             fullWidth
             onChange={onChange}
-            error={errors.password}
+            error={!!errors.password}
             helperText={errors.password}
           />
         </InputContainer>
@@ -96,7 +96,7 @@ const Register = () => {
             variant="outlined"
             fullWidth
             onChange={onChange}
-            error={errors.password2}
+            error={!!errors.password2}
             helperText={errors.password2}
           />
         </InputContainer>
