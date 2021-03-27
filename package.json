@@ -2,7 +2,7 @@
   "name": "plaid-dashboard",
   "version": "1.0.0",
   "description": "",
-  "main": "server/server.js",
+  "main": "server",
   "scripts": {
     "client-install": "npm install --prefix client",
     "start": "node server.js",
