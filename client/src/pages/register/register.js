@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { registerUser } from "../../redux/actions/authActions";
 
@@ -23,6 +23,7 @@ import {
 const Register = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const errors = useSelector((state) => state.errors);
   const [newUserData, setNewUserData] = useState({
     name: "",
     email: "",
@@ -41,7 +42,6 @@ const Register = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(registerUser(newUserData, history));
-    console.log("submitting info", newUserData);
   };
 
   return (
@@ -58,6 +58,8 @@ const Register = () => {
             variant="outlined"
             fullWidth
             onChange={onChange}
+            error={errors.name}
+            helperText={errors.name}
           />
         </InputContainer>
 
@@ -68,6 +70,8 @@ const Register = () => {
             variant="outlined"
             fullWidth
             onChange={onChange}
+            error={errors.email}
+            helperText={errors.email}
           />
         </InputContainer>
 
@@ -79,6 +83,8 @@ const Register = () => {
             variant="outlined"
             fullWidth
             onChange={onChange}
+            error={errors.password}
+            helperText={errors.password}
           />
         </InputContainer>
 
@@ -90,6 +96,8 @@ const Register = () => {
             variant="outlined"
             fullWidth
             onChange={onChange}
+            error={errors.password2}
+            helperText={errors.password2}
           />
         </InputContainer>
 

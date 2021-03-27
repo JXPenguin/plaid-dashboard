@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { loginUser } from "../../redux/actions/authActions";
 
@@ -23,6 +23,7 @@ import {
 const Landing = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const errors = useSelector((state) => state.errors);
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -56,6 +57,8 @@ const Landing = () => {
             variant="outlined"
             fullWidth
             onChange={onChange}
+            error={errors.email}
+            helperText={errors.email}
           />
         </InputContainer>
 
@@ -67,6 +70,8 @@ const Landing = () => {
             variant="outlined"
             fullWidth
             onChange={onChange}
+            error={errors.password}
+            helperText={errors.password}
           />
         </InputContainer>
         <ButtonContainer>
