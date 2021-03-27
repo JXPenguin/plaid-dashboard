@@ -33,7 +33,7 @@ const App = () => {
         window.location.href = "./landing";
       }
     }
-  }, []);
+  }, [dispatch]);
   // Need to add proper dashboard and other routes later
   if (isAuthenticated) {
     return (

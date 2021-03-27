@@ -1,12 +1,20 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import PlaidLogo from "../../../assets/plaid_logo.png";
+import { logoutUser } from "../../../redux/actions/authActions";
 
-import { Layout, TitleContainer, Title, Logo } from "./navbar.styles";
+import {
+  Layout,
+  TitleContainer,
+  Title,
+  Logo,
+  MenuContainer,
+  PlaidLink,
+} from "./navbar.styles";
 
 const Navbar = () => {
-  const history = useHistory();
+  const dispatch = useDispatch();
 
   return (
     <Layout>
@@ -14,6 +22,12 @@ const Navbar = () => {
         <Logo src={PlaidLogo} />
         <Title>DASHBOARD</Title>
       </TitleContainer>
+      <MenuContainer>
+        <PlaidLink onClick={() => console.log("linking")}>
+          Link with Plaid!
+        </PlaidLink>
+        <div onClick={() => dispatch(logoutUser())}>Sign out</div>
+      </MenuContainer>
     </Layout>
   );
 };
