@@ -12,7 +12,7 @@ import Dashboard from "./pages/dashboard";
 
 const App = () => {
   // redux is user logged in
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.auth);
 
   useEffect(() => {
