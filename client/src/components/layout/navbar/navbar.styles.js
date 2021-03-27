@@ -4,7 +4,6 @@ export const Layout = styled.div`
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  position: fixed;
   width: 100%;
   box-shadow: 0px 0px 15px 1px #e6e6e6;
 `;

@@ -11,6 +11,7 @@ import axios from "axios";
 import Landing from "./pages/landing";
 import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
+import Settings from "./pages/settings";
 
 const App = () => {
   // redux is user logged in
@@ -31,7 +32,7 @@ const App = () => {
   }, []);
 
   const onSuccess = useCallback((token, metadata) => {
-    console.log('token in onSuccess', token)
+    console.log("token in onSuccess", token);
     axios.post("/api/plaid/token-exchange", { publicToken: token });
   }, []);
 
@@ -41,8 +42,8 @@ const App = () => {
     // ...
   };
 
-
-  // TODO: context provider for plaid features
+  // TODO: context provider for plaid features instead of passing in as props to all children/routes needed
+  // Consider moving to all linking related management to settings page
   const plaidLink = usePlaidLink(config);
 
   useEffect(() => {
@@ -70,7 +71,11 @@ const App = () => {
     return (
       <Router>
         <Switch>
-          <Route path="/">
+          <Route path="/settings">
+            <Settings plaidLink={plaidLink} />
+          </Route>
+          {/* TODO: Determine if we want dashboard to be our home route, remove /dashboard if so */}
+          <Route path={["/dashboard", "/"]}>
             <Dashboard plaidLink={plaidLink} />
           </Route>
         </Switch>

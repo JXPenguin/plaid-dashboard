@@ -25,7 +25,7 @@ router.get("/create-link-token", async (req, res) => {
         client_user_id: "unique id",
       },
       client_name: "Jeff",
-      products: ["auth", "identity"],
+      products: ["auth", "identity", "transactions"],
       country_codes: ["US"],
       language: "en",
     });
@@ -38,30 +38,27 @@ router.get("/create-link-token", async (req, res) => {
 
 router.post("/token-exchange", async (req, res) => {
   try {
-    console.log('body req', req.body)
     const { publicToken } = req.body;
     const { access_token: accessToken } = await plaidClient.exchangePublicToken(
       publicToken
     );
 
-    console.log('access token acquired', accessToken)
-
     const authResponse = await plaidClient.getAuth(accessToken);
 
-    console.log("--------------");
-    console.log(
-      "Auth Response:  ",
-      console.log(util.inspect(authResponse, false, null, true))
-    );
+    // console.log("--------------");
+    // console.log(
+    //   "Auth Response:  ",
+    //   console.log(util.inspect(authResponse, false, null, true))
+    // );
 
     const identityResponse = await plaidClient.getIdentity(accessToken);
-    console.log("--------------");
-    console.log(
-      "Identity Response:  ",
-      console.log(util.inspect(identityResponse, false, null, true))
-    );
+    // console.log("--------------");
+    // console.log(
+    //   "Identity Response:  ",
+    //   console.log(util.inspect(identityResponse, false, null, true))
+    // );
 
-    const balanceResponse = await plaidClient.get(accessToken);
+    const balanceResponse = await plaidClient.getBalance(accessToken);
     console.log("--------------");
     console.log(
       "Balance Response:  ",
