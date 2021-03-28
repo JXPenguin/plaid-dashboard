@@ -44,6 +44,12 @@ const Dashboard = ({ plaidLink, plaidData }) => {
             <br />
             <br />
             If you have already, please wait for the data to load
+            <br/>
+            <br/>
+
+            This is Sandbox, so please use the following login credentials:<br/><br/>
+            user: user_good<br/>
+            password: pass_good
           </LoadingContainer>
         </LoadingLayout>
       </Layout>
