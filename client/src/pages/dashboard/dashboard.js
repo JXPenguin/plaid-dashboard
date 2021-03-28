@@ -56,6 +56,7 @@ const Dashboard = ({ plaidLink, plaidData }) => {
       value: limit - current,
     })
   );
+  const totalCreditAmount = creditData.reduce((a, { value }) => a + value, 0);
 
   const depositAccounts = accounts?.filter(({ type }) => type === "depository");
   const investmentAccounts = accounts?.filter(({ type }) => "investment");
@@ -141,20 +142,17 @@ const Dashboard = ({ plaidLink, plaidData }) => {
               <AccountBalanceIcon style={{ color: midnightBlue }} />
               <div>Account Balances</div>
             </CardHeader>
+
             <BalanceContainer>
               <CategoryColumn>
                 <CategoryTitle>Available Credit</CategoryTitle>
-                <PieChart
-                  width={800}
-                  height={400}
-                  // onMouseEnter={onPieEnter}
-                >
+                <PieChart width={400} height={200}>
                   <Tooltip />
                   <Legend />
                   <Pie
                     data={creditData}
-                    cx={420}
-                    cy={200}
+                    cx={200}
+                    cy={150}
                     startAngle={180}
                     endAngle={0}
                     innerRadius={60}
@@ -168,14 +166,28 @@ const Dashboard = ({ plaidLink, plaidData }) => {
                       <Cell key={`cell-${i}`} fill={fills[i]} />
                     ))}
                   </Pie>
+                  <text
+                    x={205}
+                    y={140}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    fill={midnightBlue}
+                    font-size="1.25rem"
+                    font-weight="700"
+                  >
+                    ${totalCreditAmount}
+                  </text>
                 </PieChart>
               </CategoryColumn>
+
               <CategoryColumn>
                 <CategoryTitle>Deposits</CategoryTitle>
               </CategoryColumn>
+
               <CategoryColumn>
                 <CategoryTitle>Investments</CategoryTitle>
               </CategoryColumn>
+
               <CategoryColumn>
                 <CategoryTitle>Loans</CategoryTitle>
               </CategoryColumn>
@@ -210,6 +222,7 @@ const Dashboard = ({ plaidLink, plaidData }) => {
               <EqualizerIcon style={{ color: midnightBlue }} />
               <div>Budgeting Summary</div>
             </CardHeader>
+
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 width={500}

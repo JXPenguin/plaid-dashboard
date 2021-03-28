@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Card } from "../pages.styles";
-import { midnightBlue, paleGray } from "../../sharedStyles/colors";
+import { midnightBlue, paleGray } from '../../sharedStyles/colors'
 
 export const GridLayout = styled.div`
   display: grid;
@@ -22,6 +22,8 @@ export const LoadingLayout = styled.div`
   color: black;
   text-align: center;
 `;
+
+// CARD STYLES
 
 export const CardBalances = styled(Card)`
   display: flex;
@@ -66,6 +68,8 @@ export const CardBody = styled.div`
   margin-top: 1rem;
   overflow: scroll;
 `;
+
+// TRANSACTION CARD STYLES
 
 export const TransactionRow = styled.div`
   display: flex;
@@ -122,6 +126,8 @@ export const TransactionTitle = styled.div`
   }
 `;
 
+// BALANCE CARD STYLES 
+
 export const BalanceContainer = styled.div`
   display: flex;
   flex-flow: row nowrap;
@@ -132,6 +138,7 @@ export const BalanceContainer = styled.div`
 export const CategoryColumn = styled.div`
   display: flex;
   flex-flow: column nowrap;
+  align-items: center;
 `;
 
 export const CategoryTitle = styled.div`
