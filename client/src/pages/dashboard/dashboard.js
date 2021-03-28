@@ -50,15 +50,15 @@ const Dashboard = ({ plaidLink, plaidData }) => {
 
   const getCategoryTotal = (transactionCategory, monthsAgo) => {
     const filteredTransactions = transactions.filter(
-      ({ category, date }) =>
-        category === transactionCategory[0] &&
-        moment()
-          .startOf("month")
-          .diff(moment(date, "YYYY-MM-DD").startOf("month"), "months") <
-          monthsAgo
+      ({ category, date, amount }) => {
+        console.log(
+          category[0] === transactionCategory &&
+            moment().subtract(monthsAgo, "days").startOf("month") ===
+              moment(date, "YYYY-MM-DD").startOf("month")
+        );
+      }
     );
-
-    console.log('filtertedTransactions', transactionCategory, monthsAgo, filteredTransactions)
+    console.log(filteredTransactions);
 
     return filteredTransactions;
   };
@@ -68,13 +68,16 @@ const Dashboard = ({ plaidLink, plaidData }) => {
     ...new Set(transactions?.map(({ category }) => category[0])),
   ];
 
-  const data = _.range(6).map((index) => {
+  const data = _.range(5, -1, -1).map((index) => {
     const monthData = transactionCategories.map((transactionCategory) => {
-      return [transactionCategory, getCategoryTotal(transactionCategory, index)];
+      return [
+        transactionCategory,
+        getCategoryTotal(transactionCategory, index),
+      ];
     });
 
     const arrayData = [
-      ["month", moment().subtract(index, "months").format("MMM. YY")],
+      ["month", moment().subtract(index, "months").format("MMM YYYY")],
       ...monthData,
     ];
     return Object.fromEntries(arrayData);
