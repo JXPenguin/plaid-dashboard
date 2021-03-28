@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useDebugValue } from "react";
+import moment from "moment";
+import _ from "lodash";
 
 import Layout from "../../components/layout";
 
@@ -23,6 +25,18 @@ import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
 
+import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+
 const Dashboard = ({ plaidLink, plaidData }) => {
   // TODO: Move each card into it's own component, and redux to fetch plaidData
   const {
@@ -34,7 +48,48 @@ const Dashboard = ({ plaidLink, plaidData }) => {
   // const investmentAccounts = accounts?.filter(({ type }) => "investment");
   // const loanAccounts = accounts?.filter(({ type }) => type === "loan");
 
-  console.log("plaidData", plaidData);
+  const getCategoryTotal = (transactionCategory, monthsAgo) => {
+    const filteredTransactions = transactions.filter(
+      ({ category, date }) =>
+        category === transactionCategory[0] &&
+        moment()
+          .startOf("month")
+          .diff(moment(date, "YYYY-MM-DD").startOf("month"), "months") <
+          monthsAgo
+    );
+
+    console.log('filtertedTransactions', transactionCategory, monthsAgo, filteredTransactions)
+
+    return filteredTransactions;
+  };
+
+  // TODO: Determine all types of categories, and map to 6 main ones we want to show in the future, for now just use first
+  const transactionCategories = [
+    ...new Set(transactions?.map(({ category }) => category[0])),
+  ];
+
+  const data = _.range(6).map((index) => {
+    const monthData = transactionCategories.map((transactionCategory) => {
+      return [transactionCategory, getCategoryTotal(transactionCategory, index)];
+    });
+
+    const arrayData = [
+      ["month", moment().subtract(index, "months").format("MMM. YY")],
+      ...monthData,
+    ];
+    return Object.fromEntries(arrayData);
+  });
+
+  console.log("data", data);
+
+  const fills = [
+    "#8884d8",
+    "#8dd1e1",
+    "#a4de6c",
+    "#ffc658",
+    "#eb975b",
+    "#d66363",
+  ];
 
   // TODO: Add proper loading handler
   if (!plaidData) {
@@ -113,6 +168,32 @@ const Dashboard = ({ plaidLink, plaidData }) => {
               <EqualizerIcon style={{ color: midnightBlue }} />
               <div>Budgeting Summary</div>
             </CardHeader>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                width={500}
+                height={300}
+                data={data}
+                margin={{
+                  top: 20,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                {transactionCategories.map((transactionCategory, i) => (
+                  <Bar
+                    dataKey={transactionCategory}
+                    stackId="a"
+                    fill={fills[i]}
+                  />
+                ))}
+              </BarChart>
+            </ResponsiveContainer>
           </CardBudget>
         </GridLayout>
       </Layout>
