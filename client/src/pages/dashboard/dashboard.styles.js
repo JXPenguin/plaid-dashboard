@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Card } from '../pages.styles'
+import { Card } from "../pages.styles";
 
 export const GridLayout = styled.div`
   display: grid;
@@ -20,7 +20,7 @@ export const LoadingLayout = styled.div`
   font-size: 1.5rem;
   color: black;
   text-align: center;
-`
+`;
 
 export const CardBalances = styled(Card)`
   display: flex;
@@ -36,7 +36,7 @@ export const CardTransactions = styled(Card)`
 
 export const CardBudget = styled(Card)`
   grid-row-start: span 2;
-`
+`;
 
 export const CardHeader = styled.div`
   display: flex;
@@ -63,12 +63,16 @@ export const CardBody = styled.div`
   flex-flow: column nowrap;
   margin-top: 1rem;
   overflow: scroll;
-`
+`;
 
 export const TransactionRow = styled.div`
   display: flex;
   flex-flow: row nowrap;
   padding: 0.15rem 0rem;
+
+  &:nth-child(even) {
+    background-color: #f7f9fc;
+  }
 
   & > div {
     white-space: nowrap;
@@ -114,4 +118,20 @@ export const TransactionTitle = styled.div`
     flex: 0.2 0;
     text-align: right;
   }
+`;
+
+export const BalanceContainer = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  margin-top: 1rem;
+  justify-content: space-between;
+`;
+
+export const CategoryColumn = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+`;
+
+export const CategoryTitle = styled.div`
+  font-weight: 700;
 `;

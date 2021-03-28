@@ -13,16 +13,24 @@ import {
   CardBody,
   TransactionRow,
   TransactionTitle,
+  BalanceContainer,
+  CategoryColumn,
+  CategoryTitle,
 } from "./dashboard.styles";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
 
 const Dashboard = ({ plaidLink, plaidData }) => {
+  // TODO: Move each card into it's own component, and redux to fetch plaidData
   const {
     transactionsResponse: { accounts, transactions },
-  } = plaidData;
-  
+  } = plaidData || { transactionsResponse: { accounts: [], transactions: [] } };
+
+  // const creditAccounts = accounts?.filter(({ type }) => type === "credit");
+  // const depositAccounts = accounts?.filter(({ type }) => type === "depository");
+  // const investmentAccounts = accounts?.filter(({ type }) => "investment");
+  // const loanAccounts = accounts?.filter(({ type }) => type === "loan");
 
   console.log("plaidData", plaidData);
 
@@ -51,6 +59,20 @@ const Dashboard = ({ plaidLink, plaidData }) => {
               <AccountBalanceIcon />
               <div>Account Balances</div>
             </CardHeader>
+            <BalanceContainer>
+              <CategoryColumn>
+                <CategoryTitle>Credits</CategoryTitle>
+              </CategoryColumn>
+              <CategoryColumn>
+                <CategoryTitle>Deposits</CategoryTitle>
+              </CategoryColumn>
+              <CategoryColumn>
+                <CategoryTitle>Investments</CategoryTitle>
+              </CategoryColumn>
+              <CategoryColumn>
+                <CategoryTitle>Loans</CategoryTitle>
+              </CategoryColumn>
+            </BalanceContainer>
           </CardBalances>
           <CardTransactions>
             <CardHeader>
@@ -63,13 +85,17 @@ const Dashboard = ({ plaidLink, plaidData }) => {
                 <div>NAME</div>
                 <div>AMOUNT</div>
               </TransactionTitle>
-              {transactions.slice(0,50).map(({ amount, date, name}) => (
-                <TransactionRow>
-                  <div>{date}</div>
-                  <div>{name}</div>
-                  <div>{amount}</div>
-                </TransactionRow>
-              ))}
+              {transactions
+                .slice(0, 50)
+                .map(({ amount, iso_currency_code, date, name }) => (
+                  <TransactionRow>
+                    <div>{date}</div>
+                    <div>{name}</div>
+                    <div>
+                      ${amount} {iso_currency_code}
+                    </div>
+                  </TransactionRow>
+                ))}
             </CardBody>
           </CardTransactions>
           <CardBudget>
