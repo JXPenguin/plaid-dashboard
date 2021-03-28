@@ -58,6 +58,7 @@ const Layout = ({ children, selected, plaidLink }) => {
               <div>Budgeting</div>
             </OptionContainer>
           </SideBarBody>
+
           <SideBarFooter>
             <OptionContainer
               selected={selected === "settings"}

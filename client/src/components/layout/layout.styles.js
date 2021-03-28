@@ -67,5 +67,3 @@ export const OptionContainer = styled.a`
     margin-left: 1rem;
   }
 `;
-
-// #483981 selected

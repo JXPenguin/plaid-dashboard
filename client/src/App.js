@@ -11,9 +11,9 @@ import axios from "axios";
 import Landing from "./pages/landing";
 import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
-import Balance from './pages/balance'
-import Transactions from './pages/transactions'
-import Budgeting from './pages/budgeting'
+import Balance from "./pages/balance";
+import Transactions from "./pages/transactions";
+import Budgeting from "./pages/budgeting";
 
 import Settings from "./pages/settings";
 
@@ -21,7 +21,9 @@ const App = () => {
   // redux is user logged in
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.auth);
+  // TODO: Move these useStates into redux store plaidReducer or useContext provider
   const [linkToken, setLinkToken] = useState("");
+  const [plaidData, setPlaidData] = useState("");
 
   useEffect(() => {
     const fetchLinkToken = async () => {
@@ -35,9 +37,12 @@ const App = () => {
     fetchLinkToken();
   }, []);
 
-  const onSuccess = useCallback((token, metadata) => {
+  const onSuccess = useCallback(async (token, metadata) => {
     console.log("token in onSuccess", token);
-    axios.post("/api/plaid/token-exchange", { publicToken: token });
+    const { data } = await axios.post("/api/plaid/token-exchange", {
+      publicToken: token,
+    });
+    setPlaidData(data)
   }, []);
 
   const config = {
@@ -89,7 +94,7 @@ const App = () => {
           </Route>
           {/* TODO: Determine if we want dashboard to be our home route, remove /dashboard if so */}
           <Route path={["/dashboard", "/"]}>
-            <Dashboard plaidLink={plaidLink} />
+            <Dashboard plaidLink={plaidLink} plaidData={plaidData} />
           </Route>
         </Switch>
       </Router>

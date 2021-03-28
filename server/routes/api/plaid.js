@@ -43,29 +43,30 @@ router.post("/token-exchange", async (req, res) => {
       publicToken
     );
 
-    const authResponse = await plaidClient.getAuth(accessToken);
+    // const authResponse = await plaidClient.getAuth(accessToken);
 
-    // console.log("--------------");
-    // console.log(
-    //   "Auth Response:  ",
-    //   console.log(util.inspect(authResponse, false, null, true))
-    // );
+    // // console.log("--------------");
+    // // console.log(
+    // //   "Auth Response:  ",
+    // //   console.log(util.inspect(authResponse, false, null, true))
+    // // );
 
-    const identityResponse = await plaidClient.getIdentity(accessToken);
-    // console.log("--------------");
-    // console.log(
-    //   "Identity Response:  ",
-    //   console.log(util.inspect(identityResponse, false, null, true))
-    // );
+    // const identityResponse = await plaidClient.getIdentity(accessToken);
+    // // console.log("--------------");
+    // // console.log(
+    // //   "Identity Response:  ",
+    // //   console.log(util.inspect(identityResponse, false, null, true))
+    // // );
 
     const balanceResponse = await plaidClient.getBalance(accessToken);
-    console.log("--------------");
-    console.log(
-      "Balance Response:  ",
-      console.log(util.inspect(balanceResponse, false, null, true))
+    const transactionsResponse = await plaidClient.getTransactions(
+      accessToken,
+      moment().subtract('3', 'months').format('YYYY-MM-DD'),
+      moment().format('YYYY-MM-DD'),
+      { count: 300, offset: 0 }
     );
 
-    res.sendStatus(200);
+    res.json({ balanceResponse, transactionsResponse });
   } catch (error) {
     console.error(error);
   }

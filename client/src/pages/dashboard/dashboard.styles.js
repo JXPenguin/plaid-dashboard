@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Card } from '../pages.styles'
 
 export const GridLayout = styled.div`
   display: grid;
@@ -12,27 +13,46 @@ export const GridLayout = styled.div`
   min-height: 30rem;
 `;
 
-export const GridCard = styled.div`
+export const LoadingLayout = styled.div`
   display: flex;
-  flex-shrink: 0;
-  flex-flow: column nowrap;
-  box-shadow: 0px 0px 10px 1px  #e6e6e6;
-  padding: 1rem;
-  background-color: white;
+  flex: 1 0;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: black;
+  text-align: center;
 `
 
-export const GridCardBalances = styled(GridCard)`
+export const CardBalances = styled(Card)`
   display: flex;
   flex-flow: column nowrap;
   flex-grow: 1;
   grid-column-start: span 3;
 `;
 
-export const GridCardTransactions = styled(GridCard)`
+export const CardTransactions = styled(Card)`
   grid-row-start: span 2;
 `
 
-export const GridCardBudget = styled(GridCard)`
+export const CardBudget = styled(Card)`
   grid-column-start: span 2;
   grid-row-start: span 2;
 `
+
+export const TitleContainer = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  text-decoration: none;
+  height: 1.5rem;
+
+  & > div {
+    margin-left: 1rem;
+  }
+`;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex: 1 0;
+  justify-content: center;
+  align-items: center;
+`;
