@@ -48,19 +48,16 @@ const Dashboard = ({ plaidLink, plaidData }) => {
   // const investmentAccounts = accounts?.filter(({ type }) => "investment");
   // const loanAccounts = accounts?.filter(({ type }) => type === "loan");
 
-  const getCategoryTotal = (transactionCategory, monthsAgo) => {
+  const getCategoryMonthAmount = (transactionCategory, monthsAgo) => {
     const filteredTransactions = transactions.filter(
-      ({ category, date, amount }) => {
-        console.log(
-          category[0] === transactionCategory &&
-            moment().subtract(monthsAgo, "days").startOf("month") ===
-              moment(date, "YYYY-MM-DD").startOf("month")
-        );
-      }
+      ({ category, date }) =>
+        category[0] === transactionCategory &&
+        moment().subtract(monthsAgo, "months").format("YYYY-MM") ===
+          moment(date, "YYYY-MM-DD").format("YYYY-MM")
     );
-    console.log(filteredTransactions);
 
-    return filteredTransactions;
+    const totalAmount = filteredTransactions.reduce((a, { amount}) => a + amount, 0);
+    return totalAmount;
   };
 
   // TODO: Determine all types of categories, and map to 6 main ones we want to show in the future, for now just use first
@@ -68,11 +65,12 @@ const Dashboard = ({ plaidLink, plaidData }) => {
     ...new Set(transactions?.map(({ category }) => category[0])),
   ];
 
-  const data = _.range(5, -1, -1).map((index) => {
+  // TODO: Add 3 month, 6 month and 1 year toggle
+  const data = _.range(2, -1, -1).map((index) => {
     const monthData = transactionCategories.map((transactionCategory) => {
       return [
         transactionCategory,
-        getCategoryTotal(transactionCategory, index),
+        getCategoryMonthAmount(transactionCategory, index),
       ];
     });
 
@@ -82,8 +80,6 @@ const Dashboard = ({ plaidLink, plaidData }) => {
     ];
     return Object.fromEntries(arrayData);
   });
-
-  console.log("data", data);
 
   const fills = [
     "#8884d8",
