@@ -17,6 +17,8 @@ import {
   CategoryColumn,
   CategoryTitle,
 } from "./dashboard.styles";
+
+import { midnightBlue } from "../../sharedStyles/colors";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
@@ -44,11 +46,13 @@ const Dashboard = ({ plaidLink, plaidData }) => {
             <br />
             <br />
             If you have already, please wait for the data to load
-            <br/>
-            <br/>
-
-            This is Sandbox, so please use the following login credentials:<br/><br/>
-            user: user_good<br/>
+            <br />
+            <br />
+            This is Sandbox, so please use the following login credentials:
+            <br />
+            <br />
+            user: user_good
+            <br />
             password: pass_good
           </LoadingContainer>
         </LoadingLayout>
@@ -62,7 +66,7 @@ const Dashboard = ({ plaidLink, plaidData }) => {
         <GridLayout>
           <CardBalances>
             <CardHeader>
-              <AccountBalanceIcon />
+              <AccountBalanceIcon style={{ color: midnightBlue }} />
               <div>Account Balances</div>
             </CardHeader>
             <BalanceContainer>
@@ -82,7 +86,7 @@ const Dashboard = ({ plaidLink, plaidData }) => {
           </CardBalances>
           <CardTransactions>
             <CardHeader>
-              <ReceiptIcon />
+              <ReceiptIcon style={{ color: midnightBlue }} />
               <div>Recent Transactions</div>
             </CardHeader>
             <CardBody>
@@ -106,7 +110,7 @@ const Dashboard = ({ plaidLink, plaidData }) => {
           </CardTransactions>
           <CardBudget>
             <CardHeader>
-              <EqualizerIcon />
+              <EqualizerIcon style={{ color: midnightBlue }} />
               <div>Budgeting Summary</div>
             </CardHeader>
           </CardBudget>

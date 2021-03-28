@@ -1,4 +1,9 @@
 import styled from "styled-components";
+import {
+  midnightBlue,
+  selectedBlue,
+  hoverBlue,
+} from "../../sharedStyles/colors";
 
 export const LayoutWrapper = styled.div`
   display: flex;
@@ -15,7 +20,7 @@ export const SideBarMenu = styled.div`
   align-items: center;
   display: flex;
   flex-flow: column nowrap;
-  background-color: #191354;
+  background-color: ${midnightBlue};
   color: white;
   /* height: 100vh; */
 
@@ -53,14 +58,14 @@ export const OptionContainer = styled.a`
   display: flex;
   align-items: center;
   text-decoration: none;
-  background-color: ${({ selected }) => (selected ? "#483981" : "none")};
+  background-color: ${({ selected }) => (selected ? selectedBlue : "none")};
   padding: 0.35rem 1rem;
   cursor: pointer;
   height: 1.5rem;
   font-size: 1.25rem;
 
   &:hover {
-    background-color: #7663b0;
+    background-color: ${hoverBlue};
     transition: all 0.2s ease-in;
   }
 

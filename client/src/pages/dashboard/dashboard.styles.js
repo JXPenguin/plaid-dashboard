@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Card } from "../pages.styles";
+import { midnightBlue, paleGray } from "../../sharedStyles/colors";
 
 export const GridLayout = styled.div`
   display: grid;
@@ -45,6 +46,7 @@ export const CardHeader = styled.div`
   text-decoration: none;
   height: 1.5rem;
   font-size: 1.25rem;
+  color: ${midnightBlue};
 
   & > div {
     margin-left: 1rem;
@@ -71,7 +73,7 @@ export const TransactionRow = styled.div`
   padding: 0.15rem 0rem;
 
   &:nth-child(even) {
-    background-color: #f7f9fc;
+    background-color: ${paleGray};
   }
 
   & > div {
