@@ -24,7 +24,7 @@ router.get("/create-link-token", async (req, res) => {
       user: {
         client_user_id: "unique id",
       },
-      client_name: "Jeff",
+      client_name: "SandboxUser",
       products: ["auth", "identity", "transactions"],
       country_codes: ["US"],
       language: "en",
