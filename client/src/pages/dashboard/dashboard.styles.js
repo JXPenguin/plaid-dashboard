@@ -10,7 +10,7 @@ export const GridLayout = styled.div`
   width: 90%;
   margin: 1rem;
 
-  min-width: 60rem;
+  min-width: 80rem;
   min-height: 30rem;
 `;
 

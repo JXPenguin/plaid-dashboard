@@ -35,11 +35,11 @@ const Layout = ({ children, selected, plaidLink }) => {
             </OptionContainer>
 
             <OptionContainer
-              selected={selected === "balance"}
-              onClick={() => history.push("/balance")}
+              selected={selected === "accounts"}
+              onClick={() => history.push("/accounts")}
             >
               <AccountBalanceIcon />
-              <div>Balance</div>
+              <div>Accounts</div>
             </OptionContainer>
 
             <OptionContainer

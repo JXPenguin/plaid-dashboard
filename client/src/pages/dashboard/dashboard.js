@@ -49,21 +49,39 @@ const Dashboard = ({ plaidLink, plaidData }) => {
     transactionsResponse: { accounts, transactions },
   } = plaidData || { transactionsResponse: { accounts: [], transactions: [] } };
 
-  const creditAccounts = accounts?.filter(({ type }) => type === "credit");
-  const creditData = creditAccounts?.map(
-    ({ name, mask, balances: { current, limit } }) => ({
+  // Account Balances
+  const creditData = accounts
+    ?.filter(({ type }) => type === "credit")
+    ?.map(({ name, mask, balances: { current, limit } }) => ({
       name: `${name} *${mask}`,
       value: limit - current,
-    })
-  );
-  const totalCreditAmount = creditData.reduce((a, { value }) => a + value, 0);
+    }));
 
-  const depositAccounts = accounts?.filter(({ type }) => type === "depository");
-  const investmentAccounts = accounts?.filter(({ type }) => "investment");
-  const loanAccounts = accounts?.filter(({ type }) => type === "loan");
+  const checkingSavingsData = accounts
+    ?.filter(({ subtype }) => ["checking", "savings"].includes(subtype))
+    ?.map(({ name, mask, balances: { current } }) => ({
+      name: `${name} *${mask}`,
+      value: current,
+    }));
 
-  console.log(creditAccounts);
+  const investmentData = accounts
+    ?.filter(({ type }) => type === "investment")
+    ?.map(({ name, mask, balances: { current } }) => ({
+      name: `${name} *${mask}`,
+      value: current,
+    }));
 
+  const loanData = accounts
+    ?.filter(({ type }) => type === "loan")
+    ?.map(({ name, mask, balances: { current } }) => ({
+      name: `${name} *${mask}`,
+      value: current,
+    }));
+
+  const getTotalAmount = (data) =>
+    Math.floor(data?.reduce((a, { value }) => a + value, 0));
+
+  // Monthly Expenses
   const getCategoryMonthAmount = (transactionCategory, monthsAgo) => {
     const filteredTransactions = transactions.filter(
       ({ category, date }) =>
@@ -146,12 +164,12 @@ const Dashboard = ({ plaidLink, plaidData }) => {
             <BalanceContainer>
               <CategoryColumn>
                 <CategoryTitle>Available Credit</CategoryTitle>
-                <PieChart width={400} height={200}>
+                <PieChart width={300} height={200}>
                   <Tooltip />
                   <Legend />
                   <Pie
                     data={creditData}
-                    cx={200}
+                    cx={150}
                     cy={150}
                     startAngle={180}
                     endAngle={0}
@@ -160,14 +178,14 @@ const Dashboard = ({ plaidLink, plaidData }) => {
                     fill="#8884d8"
                     paddingAngle={5}
                     dataKey="value"
-                    label={({ value }) => `$${value}`}
+                    label={({ value }) => `$${Math.floor(value)}`}
                   >
                     {creditData.map((entry, i) => (
                       <Cell key={`cell-${i}`} fill={fills[i]} />
                     ))}
                   </Pie>
                   <text
-                    x={205}
+                    x={150}
                     y={140}
                     textAnchor="middle"
                     dominantBaseline="middle"
@@ -175,21 +193,117 @@ const Dashboard = ({ plaidLink, plaidData }) => {
                     font-size="1.25rem"
                     font-weight="700"
                   >
-                    ${totalCreditAmount}
+                    ${getTotalAmount(creditData)}
                   </text>
                 </PieChart>
               </CategoryColumn>
 
               <CategoryColumn>
-                <CategoryTitle>Deposits</CategoryTitle>
+                <CategoryTitle>Checking/Savings</CategoryTitle>
+                <PieChart width={300} height={200}>
+                  <Tooltip />
+                  <Legend />
+                  <Pie
+                    data={checkingSavingsData}
+                    cx={150}
+                    cy={150}
+                    startAngle={180}
+                    endAngle={0}
+                    innerRadius={60}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    paddingAngle={5}
+                    dataKey="value"
+                    label={({ value }) => `$${Math.floor(value)}`}
+                  >
+                    {checkingSavingsData.map((entry, i) => (
+                      <Cell key={`cell-${i}`} fill={fills[i]} />
+                    ))}
+                  </Pie>
+                  <text
+                    x={150}
+                    y={140}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    fill={midnightBlue}
+                    font-size="1.25rem"
+                    font-weight="700"
+                  >
+                    ${getTotalAmount(checkingSavingsData)}
+                  </text>
+                </PieChart>
               </CategoryColumn>
 
               <CategoryColumn>
                 <CategoryTitle>Investments</CategoryTitle>
+                <PieChart width={300} height={200}>
+                  <Tooltip />
+                  <Legend />
+                  <Pie
+                    data={investmentData}
+                    cx={150}
+                    cy={150}
+                    startAngle={180}
+                    endAngle={0}
+                    innerRadius={60}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    paddingAngle={5}
+                    dataKey="value"
+                    label={({ value }) => `$${Math.floor(value)}`}
+                  >
+                    {investmentData.map((entry, i) => (
+                      <Cell key={`cell-${i}`} fill={fills[i]} />
+                    ))}
+                  </Pie>
+                  <text
+                    x={150}
+                    y={140}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    fill={midnightBlue}
+                    font-size="1.25rem"
+                    font-weight="700"
+                  >
+                    ${getTotalAmount(investmentData)}
+                  </text>
+                </PieChart>
               </CategoryColumn>
 
               <CategoryColumn>
                 <CategoryTitle>Loans</CategoryTitle>
+                <PieChart width={300} height={200}>
+                  <Tooltip />
+                  <Legend />
+                  <Pie
+                    data={loanData}
+                    cx={150}
+                    cy={150}
+                    startAngle={180}
+                    endAngle={0}
+                    innerRadius={60}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    paddingAngle={5}
+                    dataKey="value"
+                    label={({ value }) => `$${Math.floor(value)}`}
+                  >
+                    {loanData.map((entry, i) => (
+                      <Cell key={`cell-${i}`} fill={fills[i]} />
+                    ))}
+                  </Pie>
+                  <text
+                    x={150}
+                    y={140}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    fill={midnightBlue}
+                    font-size="1.25rem"
+                    font-weight="700"
+                  >
+                    ${getTotalAmount(loanData)}
+                  </text>
+                </PieChart>
               </CategoryColumn>
             </BalanceContainer>
           </CardBalances>
@@ -220,7 +334,7 @@ const Dashboard = ({ plaidLink, plaidData }) => {
           <CardBudget>
             <CardHeader>
               <EqualizerIcon style={{ color: midnightBlue }} />
-              <div>Budgeting Summary</div>
+              <div>Monthly Expenses</div>
             </CardHeader>
 
             <ResponsiveContainer width="100%" height="100%">

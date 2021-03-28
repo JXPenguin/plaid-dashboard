@@ -3,12 +3,12 @@ import { useSelector } from "react-redux";
 
 import Layout from "../../components/layout";
 
-const Balance = ({ plaidLink }) => {
+const Accounts = ({ plaidLink }) => {
   // const { user } = useSelector((state) => state.auth);
 
-  return <Layout selected="balance" plaidLink={plaidLink}>
+  return <Layout selected="accounts" plaidLink={plaidLink}>
     <div>TBD :)</div>
   </Layout>;
 };
 
-export default Balance;
+export default Accounts;

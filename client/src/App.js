@@ -11,7 +11,7 @@ import axios from "axios";
 import Landing from "./pages/landing";
 import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
-import Balance from "./pages/balance";
+import Accounts from "./pages/accounts";
 import Transactions from "./pages/transactions";
 import Budgeting from "./pages/budgeting";
 
@@ -80,8 +80,8 @@ const App = () => {
     return (
       <Router>
         <Switch>
-          <Route path="/balance">
-            <Balance plaidLink={plaidLink} />
+          <Route path="/accounts">
+            <Accounts plaidLink={plaidLink} />
           </Route>
           <Route path="/transactions">
             <Transactions plaidLink={plaidLink} />
