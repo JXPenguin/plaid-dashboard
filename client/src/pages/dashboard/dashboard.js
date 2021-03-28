@@ -26,12 +26,18 @@ import ReceiptIcon from "@material-ui/icons/Receipt";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
 
 import {
+  // Bar Chart
   BarChart,
   Bar,
   Cell,
   XAxis,
   YAxis,
   CartesianGrid,
+  // Pie Chart
+  PieChart,
+  Pie,
+  Sector,
+  // General
   Tooltip,
   Legend,
   ResponsiveContainer,
@@ -43,10 +49,19 @@ const Dashboard = ({ plaidLink, plaidData }) => {
     transactionsResponse: { accounts, transactions },
   } = plaidData || { transactionsResponse: { accounts: [], transactions: [] } };
 
-  // const creditAccounts = accounts?.filter(({ type }) => type === "credit");
-  // const depositAccounts = accounts?.filter(({ type }) => type === "depository");
-  // const investmentAccounts = accounts?.filter(({ type }) => "investment");
-  // const loanAccounts = accounts?.filter(({ type }) => type === "loan");
+  const creditAccounts = accounts?.filter(({ type }) => type === "credit");
+  const creditData = creditAccounts?.map(
+    ({ name, mask, balances: { current, limit } }) => ({
+      name: `${name} *${mask}`,
+      value: limit - current,
+    })
+  );
+
+  const depositAccounts = accounts?.filter(({ type }) => type === "depository");
+  const investmentAccounts = accounts?.filter(({ type }) => "investment");
+  const loanAccounts = accounts?.filter(({ type }) => type === "loan");
+
+  console.log(creditAccounts);
 
   const getCategoryMonthAmount = (transactionCategory, monthsAgo) => {
     const filteredTransactions = transactions.filter(
@@ -56,7 +71,10 @@ const Dashboard = ({ plaidLink, plaidData }) => {
           moment(date, "YYYY-MM-DD").format("YYYY-MM")
     );
 
-    const totalAmount = filteredTransactions.reduce((a, { amount}) => a + amount, 0);
+    const totalAmount = filteredTransactions.reduce(
+      (a, { amount }) => a + amount,
+      0
+    );
     return totalAmount;
   };
 
@@ -66,7 +84,7 @@ const Dashboard = ({ plaidLink, plaidData }) => {
   ];
 
   // TODO: Add 3 month, 6 month and 1 year toggle
-  const data = _.range(2, -1, -1).map((index) => {
+  const budgetData = _.range(2, -1, -1).map((index) => {
     const monthData = transactionCategories.map((transactionCategory) => {
       return [
         transactionCategory,
@@ -125,7 +143,32 @@ const Dashboard = ({ plaidLink, plaidData }) => {
             </CardHeader>
             <BalanceContainer>
               <CategoryColumn>
-                <CategoryTitle>Credits</CategoryTitle>
+                <CategoryTitle>Available Credit</CategoryTitle>
+                <PieChart
+                  width={800}
+                  height={400}
+                  // onMouseEnter={onPieEnter}
+                >
+                  <Tooltip />
+                  <Legend />
+                  <Pie
+                    data={creditData}
+                    cx={420}
+                    cy={200}
+                    startAngle={180}
+                    endAngle={0}
+                    innerRadius={60}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    paddingAngle={5}
+                    dataKey="value"
+                    label={({ value }) => `$${value}`}
+                  >
+                    {creditData.map((entry, i) => (
+                      <Cell key={`cell-${i}`} fill={fills[i]} />
+                    ))}
+                  </Pie>
+                </PieChart>
               </CategoryColumn>
               <CategoryColumn>
                 <CategoryTitle>Deposits</CategoryTitle>
@@ -171,7 +214,7 @@ const Dashboard = ({ plaidLink, plaidData }) => {
               <BarChart
                 width={500}
                 height={300}
-                data={data}
+                data={budgetData}
                 margin={{
                   top: 20,
                   right: 30,
@@ -186,6 +229,7 @@ const Dashboard = ({ plaidLink, plaidData }) => {
                 <Legend />
                 {transactionCategories.map((transactionCategory, i) => (
                   <Bar
+                    key={`bar-${i}`}
                     dataKey={transactionCategory}
                     stackId="a"
                     fill={fills[i]}
