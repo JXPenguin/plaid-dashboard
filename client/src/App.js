@@ -11,6 +11,10 @@ import axios from "axios";
 import Landing from "./pages/landing";
 import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
+import Balance from './pages/balance'
+import Transactions from './pages/transactions'
+import Budgeting from './pages/budgeting'
+
 import Settings from "./pages/settings";
 
 const App = () => {
@@ -71,6 +75,15 @@ const App = () => {
     return (
       <Router>
         <Switch>
+          <Route path="/balance">
+            <Balance plaidLink={plaidLink} />
+          </Route>
+          <Route path="/transactions">
+            <Transactions plaidLink={plaidLink} />
+          </Route>
+          <Route path="/budgeting">
+            <Budgeting plaidLink={plaidLink} />
+          </Route>
           <Route path="/settings">
             <Settings plaidLink={plaidLink} />
           </Route>

@@ -8,8 +8,8 @@ export const GridLayout = styled.div`
   width: 90%;
   margin: 1rem;
 
-  /* min-width: 20rem;
-  min-height: 40rem; */
+  min-width: 60rem;
+  min-height: 30rem;
 `;
 
 export const GridCard = styled.div`
