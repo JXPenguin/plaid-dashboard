@@ -32,7 +32,8 @@ export const MenuContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
-  width: 12rem;
+  width: 15rem;
+  font-size: 1.25rem;
 
   & > * {
     display: flex;

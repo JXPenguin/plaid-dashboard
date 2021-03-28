@@ -57,6 +57,7 @@ export const OptionContainer = styled.a`
   padding: 0.35rem 1rem;
   cursor: pointer;
   height: 1.5rem;
+  font-size: 1.25rem;
 
   &:hover {
     background-color: #7663b0;

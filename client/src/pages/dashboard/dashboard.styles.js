@@ -30,20 +30,21 @@ export const CardBalances = styled(Card)`
 `;
 
 export const CardTransactions = styled(Card)`
-  grid-row-start: span 2;
-`
-
-export const CardBudget = styled(Card)`
   grid-column-start: span 2;
   grid-row-start: span 2;
+`;
+
+export const CardBudget = styled(Card)`
+  grid-row-start: span 2;
 `
 
-export const TitleContainer = styled.div`
+export const CardHeader = styled.div`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   text-decoration: none;
   height: 1.5rem;
+  font-size: 1.25rem;
 
   & > div {
     margin-left: 1rem;
@@ -55,4 +56,62 @@ export const LoadingContainer = styled.div`
   flex: 1 0;
   justify-content: center;
   align-items: center;
+`;
+
+export const CardBody = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  margin-top: 1rem;
+  overflow: scroll;
+`
+
+export const TransactionRow = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 0.15rem 0rem;
+
+  & > div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  & > div:first-child {
+    flex: 0.2 0;
+  }
+
+  & > div:nth-child(2) {
+    flex: 0.6 0;
+  }
+
+  & > div:nth-child(3) {
+    flex: 0.2 0;
+    text-align: right;
+  }
+`;
+
+export const TransactionTitle = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 0.15rem 0rem;
+
+  & > div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 700;
+  }
+
+  & > div:first-child {
+    flex: 0.2 0;
+  }
+
+  & > div:nth-child(2) {
+    flex: 0.6 0;
+  }
+
+  & > div:nth-child(3) {
+    flex: 0.2 0;
+    text-align: right;
+  }
 `;

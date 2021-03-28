@@ -3,19 +3,29 @@ import React from "react";
 import Layout from "../../components/layout";
 
 import {
+  LoadingLayout,
+  LoadingContainer,
   GridLayout,
   CardBalances,
   CardTransactions,
   CardBudget,
-  TitleContainer,
-  LoadingLayout,
-  LoadingContainer,
+  CardHeader,
+  CardBody,
+  TransactionRow,
+  TransactionTitle,
 } from "./dashboard.styles";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
 
 const Dashboard = ({ plaidLink, plaidData }) => {
+  const {
+    transactionsResponse: { accounts, transactions },
+  } = plaidData;
+  
+
+  console.log("plaidData", plaidData);
+
   // TODO: Add proper loading handler
   if (!plaidData) {
     return (
@@ -37,22 +47,36 @@ const Dashboard = ({ plaidLink, plaidData }) => {
       <Layout selected="dashboard" plaidLink={plaidLink}>
         <GridLayout>
           <CardBalances>
-            <TitleContainer>
+            <CardHeader>
               <AccountBalanceIcon />
               <div>Account Balances</div>
-            </TitleContainer>
+            </CardHeader>
           </CardBalances>
           <CardTransactions>
-            <TitleContainer>
+            <CardHeader>
               <ReceiptIcon />
               <div>Recent Transactions</div>
-            </TitleContainer>
+            </CardHeader>
+            <CardBody>
+              <TransactionTitle>
+                <div>DATE</div>
+                <div>NAME</div>
+                <div>AMOUNT</div>
+              </TransactionTitle>
+              {transactions.slice(0,50).map(({ amount, date, name}) => (
+                <TransactionRow>
+                  <div>{date}</div>
+                  <div>{name}</div>
+                  <div>{amount}</div>
+                </TransactionRow>
+              ))}
+            </CardBody>
           </CardTransactions>
           <CardBudget>
-            <TitleContainer>
+            <CardHeader>
               <EqualizerIcon />
               <div>Budgeting Summary</div>
-            </TitleContainer>
+            </CardHeader>
           </CardBudget>
         </GridLayout>
       </Layout>
