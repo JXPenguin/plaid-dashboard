@@ -1,5 +1,6 @@
 module.exports = {
-  mongoURI:
-    "mongodb+srv://jxpenguin:k610rPOFkVAodwDh@plaid-dashboard.ykeuo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  mongoURI: process.env.MONGODB_URI_KEY,
   secretOrKey: "secret",
+  plaidClientID: process.env.PLAID_CLIENT_ID,
+  plaidSecretKey: process.env.PLAID_SECRET_KEY,
 };

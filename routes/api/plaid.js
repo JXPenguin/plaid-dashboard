@@ -2,6 +2,7 @@ const express = require("express");
 const plaid = require("plaid");
 const router = express.Router();
 const passport = require("passport");
+const keys = require("../../config/keys")
 const moment = require("moment");
 const mongoose = require("mongoose");
 const path = require("path");
@@ -12,8 +13,8 @@ const Account = require("../../models/Account");
 const User = require("../../models/User");
 
 const plaidClient = new plaid.Client({
-  clientID: "605ba601594708000fa283d4",
-  secret: "7f208e3724c8cf2702563a797403be",
+  clientID: keys.plaidClientID,
+  secret: keys.plaidSecretKey,
   env: plaid.environments.sandbox,
 });
 
