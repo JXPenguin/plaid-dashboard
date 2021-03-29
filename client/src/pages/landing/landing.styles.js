@@ -25,7 +25,7 @@ export const LoginCard = styled.form`
   justify-content: center;
   flex: 0.3 0;
   min-width: 20rem;
-  box-shadow: 0px 0px 15px 1px #e6e6e6;
+  box-shadow: 0px 0px 10px 1px #e6e6e6;
   background-color: white;
   border-radius: 20px;
   height: 40rem;
