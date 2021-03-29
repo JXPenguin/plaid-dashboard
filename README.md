@@ -62,5 +62,5 @@ Version 1.0.0
 
 * Thank you to Rishi Prasad's project, which was referenced to build out the authentication. <a href="https://blog.bitsrc.io/build-a-login-auth-app-with-mern-stack-part-1-c405048e3669">Link to Guide</a>
 * Thanks to Tyler Nappy and the Plaid team for sharing this guide on how to get started with Plaid's APIs <a href="https://www.youtube.com/watch?v=ahv9KjJ7t5I">Link to Video</a>
-* Props to plaid's Link, which made intergration quick and simple! <a href="https://plaid.com/docs/link/">Check out Plaid Link</a>
+* Props to Plaid's Link, which made intergration quick and simple! <a href="https://plaid.com/docs/link/">Check out Plaid Link</a>
 * Background image credits to: <a href="http://www.freepik.com">Designed by Freepik</a>
