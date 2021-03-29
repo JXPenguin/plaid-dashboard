@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const util = require("util");
 
+console.log('keys', keys)
 // Load Account and User models
 const Account = require("../../models/Account");
 const User = require("../../models/User");
