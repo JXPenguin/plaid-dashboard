@@ -15,7 +15,7 @@ import {
 
 const Navbar = ({ plaidLink }) => {
   const dispatch = useDispatch();
-  const { open, ready, error } = plaidLink
+  const { open, ready } = plaidLink
 
   return (
     <Layout>
