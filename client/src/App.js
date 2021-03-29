@@ -38,11 +38,10 @@ const App = () => {
   }, []);
 
   const onSuccess = useCallback(async (token, metadata) => {
-    console.log("token in onSuccess", token);
     const { data } = await axios.post("/api/plaid/token-exchange", {
       publicToken: token,
     });
-    setPlaidData(data)
+    setPlaidData(data);
   }, []);
 
   const config = {

@@ -2,13 +2,12 @@ const express = require("express");
 const plaid = require("plaid");
 const router = express.Router();
 const passport = require("passport");
-const keys = require("../../config/keys")
+const keys = require("../../config/keys");
 const moment = require("moment");
 const mongoose = require("mongoose");
 const path = require("path");
 const util = require("util");
 
-console.log('keys', keys)
 // Load Account and User models
 const Account = require("../../models/Account");
 const User = require("../../models/User");
@@ -45,26 +44,11 @@ router.post("/token-exchange", async (req, res) => {
       publicToken
     );
 
-    // const authResponse = await plaidClient.getAuth(accessToken);
-
-    // // console.log("--------------");
-    // // console.log(
-    // //   "Auth Response:  ",
-    // //   console.log(util.inspect(authResponse, false, null, true))
-    // // );
-
-    // const identityResponse = await plaidClient.getIdentity(accessToken);
-    // // console.log("--------------");
-    // // console.log(
-    // //   "Identity Response:  ",
-    // //   console.log(util.inspect(identityResponse, false, null, true))
-    // // );
-
     const balanceResponse = await plaidClient.getBalance(accessToken);
     const transactionsResponse = await plaidClient.getTransactions(
       accessToken,
-      moment().subtract('3', 'months').format('YYYY-MM-DD'),
-      moment().format('YYYY-MM-DD'),
+      moment().subtract("3", "months").format("YYYY-MM-DD"),
+      moment().format("YYYY-MM-DD"),
       { count: 300, offset: 0 }
     );
 

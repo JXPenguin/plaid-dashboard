@@ -36,7 +36,6 @@ import {
   // Pie Chart
   PieChart,
   Pie,
-  Sector,
   // General
   Tooltip,
   Legend,
