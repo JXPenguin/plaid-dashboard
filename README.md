@@ -2,15 +2,15 @@
 
 The goal of this project is to learn more about Plaid APIs and build an application that provides all the daily retail banking needs of the average consumer.
 
-# <a href="https://whispering-earth-85521.herokuapp.com/">Hosted Website</a>
+## Hosted Website
+
+url: https://whispering-earth-85521.herokuapp.com/
 
 You may access the platform through the test credentials below, or go through the register form to create an account.
 ```
 user: test@test.com
 password: 321321321
 ```
-
-url: https://whispering-earth-85521.herokuapp.com/
 
 ## Getting Started
 
